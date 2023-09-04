@@ -68,7 +68,6 @@ namespace API_REST_With_DOTNET7.Services.Implementations
 
         public Pessoa Update(Pessoa pessoa)
         {
-            // Quando a pessoa não existir, ele retorna um new Pessoa();
             if (!Exists(pessoa.Id))
                 throw new Exception("Id não encontrado!");
 
@@ -101,6 +100,9 @@ namespace API_REST_With_DOTNET7.Services.Implementations
 
         public void Delete(int id)
         {
+            if (!Exists(id))
+                throw new Exception("Id não encontrado!");
+
             var result = _context.Pessoas.SingleOrDefault(p => p.Id == id);
 
             if (result != null)
