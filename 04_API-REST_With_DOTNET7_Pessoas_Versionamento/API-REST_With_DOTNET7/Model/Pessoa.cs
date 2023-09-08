@@ -15,5 +15,7 @@ namespace API_REST_With_DOTNET7.Model
         public string Endereco { get; set; }
         [Column("sexo")]
         public string Sexo { get; set; }
+        [Column("idade")]
+        public string Idade { get; set; }
     }
 }

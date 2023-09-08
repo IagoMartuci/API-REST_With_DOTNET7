@@ -32,7 +32,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "api/v1.0/pessoas/", // Versionamento da API, poderia alterar nos outros profiles tambem, mas alterei somente aqui no IIS para testar.
+      "launchUrl": "api/v2.0/pessoas/", // Versionamento da API, poderia alterar nos outros profiles tambem, mas alterei somente aqui no IIS para testar.
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

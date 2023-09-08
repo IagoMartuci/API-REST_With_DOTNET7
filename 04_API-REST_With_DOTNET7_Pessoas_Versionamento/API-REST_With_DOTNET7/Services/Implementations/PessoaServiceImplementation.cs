@@ -1,6 +1,7 @@
 ﻿using log4net;
 using API_REST_With_DOTNET7.Model;
 using API_REST_With_DOTNET7.Model.Context;
+using System.Text.RegularExpressions;
 
 namespace API_REST_With_DOTNET7.Services.Implementations
 {
@@ -48,7 +49,7 @@ namespace API_REST_With_DOTNET7.Services.Implementations
         {
             try
             {
-                if (SexoValido(pessoa))
+                if (ValidarSexo(pessoa) && ValidarIdade(pessoa))
                 {
                     _context.Add(pessoa);
                     _context.SaveChanges();
@@ -56,7 +57,7 @@ namespace API_REST_With_DOTNET7.Services.Implementations
                 }
                 else
                 {
-                    throw new Exception("Sexo inválido!");
+                    throw new Exception("Sexo ou idade inválidos!");
                 }
             }
             catch (Exception ex)
@@ -78,7 +79,7 @@ namespace API_REST_With_DOTNET7.Services.Implementations
             {
                 try
                 {
-                    if (SexoValido(pessoa))
+                    if (ValidarSexo(pessoa) && ValidarIdade(pessoa))
                     {
                         _context.Entry(result).CurrentValues.SetValues(pessoa);
                         _context.SaveChanges();
@@ -86,7 +87,7 @@ namespace API_REST_With_DOTNET7.Services.Implementations
                     }
                     else
                     {
-                        throw new Exception("Sexo inválido!");
+                        throw new Exception("Sexo ou idade inválidos!");
                     }
                 }
                 catch (Exception ex)
@@ -125,9 +126,21 @@ namespace API_REST_With_DOTNET7.Services.Implementations
             return _context.Pessoas.Any(p => p.Id.Equals(id));
         }
 
-        private bool SexoValido(Pessoa pessoa)
+        private bool ValidarSexo(Pessoa pessoa)
         {
             if (pessoa.Sexo.Equals("Feminino") || pessoa.Sexo.Equals("Masculino"))
+                return true;
+            else
+                return false;
+        }
+
+        private bool ValidarIdade(Pessoa pessoa)
+        {
+            // https://www.techiedelight.com/pt/check-if-a-string-is-a-number-in-csharp/
+            int num;
+            bool isNum = int.TryParse(pessoa.Idade, out num);
+
+            if (isNum)
                 return true;
             else
                 return false;
