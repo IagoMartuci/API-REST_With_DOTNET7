@@ -1,7 +1,6 @@
 ﻿using log4net;
 using API_REST_With_DOTNET7.Model;
 using API_REST_With_DOTNET7.Model.Context;
-using System.Text.RegularExpressions;
 
 namespace API_REST_With_DOTNET7.Services.Implementations
 {
@@ -49,15 +48,29 @@ namespace API_REST_With_DOTNET7.Services.Implementations
         {
             try
             {
-                if (ValidarSexo(pessoa) && ValidarIdade(pessoa))
+                if (!ValidarSexo(pessoa) && !ValidarIdade(pessoa))
                 {
-                    _context.Add(pessoa);
-                    _context.SaveChanges();
-                    return pessoa;
+                    throw new Exception("Sexo e idade inválidos!");
                 }
                 else
                 {
-                    throw new Exception("Sexo ou idade inválidos!");
+                    if (!ValidarSexo(pessoa))
+                    {
+                        throw new Exception("Sexo inválido!");
+                    }
+                    else
+                    {
+                        if (ValidarIdade(pessoa))
+                        {
+                            _context.Add(pessoa);
+                            _context.SaveChanges();
+                            return pessoa;
+                        }
+                        else
+                        {
+                            throw new Exception("Idade inválida!");
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -79,15 +92,30 @@ namespace API_REST_With_DOTNET7.Services.Implementations
             {
                 try
                 {
-                    if (ValidarSexo(pessoa) && ValidarIdade(pessoa))
+                    if (!ValidarSexo(pessoa) && !ValidarIdade(pessoa))
                     {
-                        _context.Entry(result).CurrentValues.SetValues(pessoa);
-                        _context.SaveChanges();
-                        return pessoa;
+                        throw new Exception("Sexo e idade inválidos!");
                     }
                     else
                     {
-                        throw new Exception("Sexo ou idade inválidos!");
+
+                        if (!ValidarSexo(pessoa))
+                        {
+                            throw new Exception("Sexo inválido!");
+                        }
+                        else
+                        {
+                            if (ValidarIdade(pessoa))
+                            {
+                                _context.Entry(result).CurrentValues.SetValues(pessoa);
+                                _context.SaveChanges();
+                                return pessoa;
+                            }
+                            else
+                            {
+                                throw new Exception("Idade inválida!");
+                            }
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -141,9 +169,16 @@ namespace API_REST_With_DOTNET7.Services.Implementations
             bool isNum = int.TryParse(pessoa.Idade, out num);
 
             if (isNum)
-                return true;
+            {
+                if (pessoa.Idade.Length <= 3 && num <= 100)
+                    return true;
+                else
+                    return false;
+            }
             else
+            {
                 return false;
+            }
         }
     }
 }
