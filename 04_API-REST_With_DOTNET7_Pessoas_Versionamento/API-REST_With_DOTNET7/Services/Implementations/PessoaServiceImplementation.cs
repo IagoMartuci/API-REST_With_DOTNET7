@@ -165,8 +165,8 @@ namespace API_REST_With_DOTNET7.Services.Implementations
         private bool ValidarIdade(Pessoa pessoa)
         {
             // https://www.techiedelight.com/pt/check-if-a-string-is-a-number-in-csharp/
-            int num;
-            bool isNum = int.TryParse(pessoa.Idade, out num);
+            uint num;
+            bool isNum = uint.TryParse(pessoa.Idade, out num);
 
             if (isNum)
             {
