@@ -13,11 +13,11 @@ namespace API_REST_With_DOTNET7.Business.Implementations
             _repository = repository;
         }
 
-        public List<Pessoa> FindAll()
+        public List<Pessoa> FindAllBusiness()
         {
             try
             {
-                return _repository.FindAllRepo();
+                return _repository.FindAllRepository();
             }
             catch (Exception ex)
             {
@@ -26,11 +26,11 @@ namespace API_REST_With_DOTNET7.Business.Implementations
             }
         }
 
-        public Pessoa FindById(int id)
+        public Pessoa FindByIdBusiness(int id)
         {
             try
             {
-                return _repository.FindByIdRepo(id);
+                return _repository.FindByIdRepository(id);
             }
             catch (Exception ex)
             {
@@ -39,7 +39,7 @@ namespace API_REST_With_DOTNET7.Business.Implementations
             }
         }
 
-        public Pessoa Create(Pessoa pessoa)
+        public Pessoa CreateBusiness(Pessoa pessoa)
         {
             try
             {
@@ -57,7 +57,7 @@ namespace API_REST_With_DOTNET7.Business.Implementations
                     {
                         if (ValidarIdade(pessoa))
                         {
-                            return _repository.CreateRepo(pessoa);
+                            return _repository.CreateRepository(pessoa);
                         }
                         else
                         {
@@ -73,7 +73,7 @@ namespace API_REST_With_DOTNET7.Business.Implementations
             }
         }
 
-        public Pessoa Update(Pessoa pessoa)
+        public Pessoa UpdateBusiness(Pessoa pessoa)
         {
             try
             {
@@ -92,7 +92,7 @@ namespace API_REST_With_DOTNET7.Business.Implementations
                     {
                         if (ValidarIdade(pessoa))
                         {
-                            return _repository.UpdateRepo(pessoa);
+                            return _repository.UpdateRepository(pessoa);
                         }
                         else
                         {
@@ -108,11 +108,11 @@ namespace API_REST_With_DOTNET7.Business.Implementations
             }
         }
 
-        public void Delete(int id)
+        public void DeleteBusiness(int id)
         {
             try
             {
-                _repository.DeleteRepo(id);
+                _repository.DeleteRepository(id);
             }
             catch (Exception ex)
             {

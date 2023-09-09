@@ -4,10 +4,10 @@ namespace API_REST_With_DOTNET7.Business
 {
     public interface IPessoaBusiness
     {
-        List<Pessoa> FindAll(); // Get
-        Pessoa FindById(int id); // Get
-        Pessoa Create(Pessoa pessoa); // Post
-        Pessoa Update(Pessoa pessoa); // Put
-        void Delete(int id); // Delete
+        List<Pessoa> FindAllBusiness(); // Get
+        Pessoa FindByIdBusiness(int id); // Get
+        Pessoa CreateBusiness(Pessoa pessoa); // Post
+        Pessoa UpdateBusiness(Pessoa pessoa); // Put
+        void DeleteBusiness(int id); // Delete
     }
 }

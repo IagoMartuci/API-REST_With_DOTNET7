@@ -13,7 +13,7 @@ namespace API_REST_With_DOTNET7.Repository.Implementations
             _context = context;
         }
 
-        public List<Pessoa> FindAllRepo()
+        public List<Pessoa> FindAllRepository()
         {
             try
             {
@@ -27,7 +27,7 @@ namespace API_REST_With_DOTNET7.Repository.Implementations
             }
         }
 
-        public Pessoa FindByIdRepo(int id)
+        public Pessoa FindByIdRepository(int id)
         {
             try
             {
@@ -46,7 +46,7 @@ namespace API_REST_With_DOTNET7.Repository.Implementations
             }
         }
 
-        public Pessoa CreateRepo(Pessoa pessoa)
+        public Pessoa CreateRepository(Pessoa pessoa)
         {
             try
             {
@@ -61,7 +61,7 @@ namespace API_REST_With_DOTNET7.Repository.Implementations
             }
         }
 
-        public Pessoa UpdateRepo(Pessoa pessoa)
+        public Pessoa UpdateRepository(Pessoa pessoa)
         {
             if (!Exists(pessoa.Id))
                 throw new Exception("Id não encontrado!");
@@ -85,7 +85,7 @@ namespace API_REST_With_DOTNET7.Repository.Implementations
             return null;
         }
 
-        public void DeleteRepo(int id)
+        public void DeleteRepository(int id)
         {
             if (!Exists(id))
                 throw new Exception("Id não encontrado!");

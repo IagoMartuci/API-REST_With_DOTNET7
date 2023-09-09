@@ -27,7 +27,7 @@ namespace API_REST_With_DOTNET7.Controllers
         {
             try
             {
-                return Ok(_business.FindAll());
+                return Ok(_business.FindAllBusiness());
             }
             catch (Exception ex)
             {
@@ -44,7 +44,7 @@ namespace API_REST_With_DOTNET7.Controllers
         {
             try
             {
-                return Ok(_business.FindById(id));
+                return Ok(_business.FindByIdBusiness(id));
             }
             catch (MySqlException ex)
             {
@@ -71,7 +71,7 @@ namespace API_REST_With_DOTNET7.Controllers
         {
             try
             {
-                return Ok(_business.Create(pessoa));
+                return Ok(_business.CreateBusiness(pessoa));
             }
             catch (MySqlException ex)
             {
@@ -98,7 +98,7 @@ namespace API_REST_With_DOTNET7.Controllers
         {
             try
             {
-                return Ok(_business.Update(pessoa));
+                return Ok(_business.UpdateBusiness(pessoa));
             }
             catch (MySqlException ex)
             {
@@ -125,7 +125,7 @@ namespace API_REST_With_DOTNET7.Controllers
         {
             try
             {
-                _business.Delete(id);
+                _business.DeleteBusiness(id);
                 return NoContent();
             }
             catch (MySqlException ex)
