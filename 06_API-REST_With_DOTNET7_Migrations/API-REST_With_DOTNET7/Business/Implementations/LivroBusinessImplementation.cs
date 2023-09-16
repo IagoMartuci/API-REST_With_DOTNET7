@@ -68,7 +68,7 @@ namespace API_REST_With_DOTNET7.Business.Implementations
                 //if (!livroExists)
                 //    throw new Exception("Erro: Id não encontrado! Exists");
 
-                // Se fizer a validação se o livro existe proveitando o Exists do método FindById, a programação começa aqui
+                // Se optar por fazer a validação se o livro existe no BD, aproveitando o Exists do método FindById, a programação começa aqui
                 if (!ValidarDataLancamento(livro) && !ValidarPreco(livro.Preco))
                 {
                     throw new Exception("Erro 1: Não é permitido alterar a data de lançamento do livro! \n" +
@@ -123,7 +123,7 @@ namespace API_REST_With_DOTNET7.Business.Implementations
 
         //private bool ValidarDataLancamento(Livro livro)
         //{
-              // Aproveitando a validação do exists do método FindById
+              // Aproveitando a validação do Exists presente no método FindById
         //    var result = _repository.FindByIdRepository(livro.Id);
 
         //    if (result != null)
