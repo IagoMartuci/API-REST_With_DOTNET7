@@ -20,7 +20,6 @@ namespace API_REST_With_DOTNET7.Controllers
         }
 
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet]
         public IActionResult GetAll()
@@ -91,7 +90,7 @@ namespace API_REST_With_DOTNET7.Controllers
         }
 
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpPut]
         public IActionResult Update([FromBody] Pessoa pessoa)
@@ -113,7 +112,7 @@ namespace API_REST_With_DOTNET7.Controllers
             catch (Exception ex)
             {
                 _log.Error(ex);
-                return NotFound(ex.Message);
+                return BadRequest(ex.Message);
             }
         }
 

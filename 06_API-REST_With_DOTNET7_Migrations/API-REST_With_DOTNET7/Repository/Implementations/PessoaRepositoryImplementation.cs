@@ -37,7 +37,7 @@ namespace API_REST_With_DOTNET7.Repository.Implementations
                 if (result != null)
                     return result;
                 else
-                    throw new Exception("Id não econtrado!");
+                    throw new Exception("Erro: Id não econtrado! FindById");
             }
             catch (Exception ex)
             {
@@ -64,7 +64,7 @@ namespace API_REST_With_DOTNET7.Repository.Implementations
         public Pessoa UpdateRepository(Pessoa pessoa)
         {
             if (!Exists(pessoa.Id))
-                throw new Exception("Id não encontrado!");
+                throw new Exception("Erro: Id não encontrado! Update");
 
             var result = _context.Pessoas.SingleOrDefault(p => p.Id == pessoa.Id);
 
@@ -74,7 +74,6 @@ namespace API_REST_With_DOTNET7.Repository.Implementations
                 {
                     _context.Entry(result).CurrentValues.SetValues(pessoa);
                     _context.SaveChanges();
-                    //return pessoa;
                 }
                 catch (Exception ex)
                 {
@@ -88,7 +87,7 @@ namespace API_REST_With_DOTNET7.Repository.Implementations
         public void DeleteRepository(int id)
         {
             if (!Exists(id))
-                throw new Exception("Id não encontrado!");
+                throw new Exception("Erro: Id não encontrado! Delete");
 
             var result = _context.Pessoas.SingleOrDefault(p => p.Id == id);
 

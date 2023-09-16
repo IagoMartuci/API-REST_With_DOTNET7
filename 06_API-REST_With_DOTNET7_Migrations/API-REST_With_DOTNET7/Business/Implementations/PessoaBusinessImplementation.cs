@@ -45,13 +45,13 @@ namespace API_REST_With_DOTNET7.Business.Implementations
             {
                 if (!ValidarSexo(pessoa) && !ValidarIdade(pessoa))
                 {
-                    throw new Exception("Sexo e idade inválidos!");
+                    throw new Exception("Erro: Sexo e idade inválidos!");
                 }
                 else
                 {
                     if (!ValidarSexo(pessoa))
                     {
-                        throw new Exception("Sexo inválido!");
+                        throw new Exception("Erro: Sexo inválido!");
                     }
                     else
                     {
@@ -61,7 +61,7 @@ namespace API_REST_With_DOTNET7.Business.Implementations
                         }
                         else
                         {
-                            throw new Exception("Idade inválida!");
+                            throw new Exception("Erro: Idade inválida!");
                         }
                     }
                 }
@@ -79,14 +79,14 @@ namespace API_REST_With_DOTNET7.Business.Implementations
             {
                 if (!ValidarSexo(pessoa) && !ValidarIdade(pessoa))
                 {
-                    throw new Exception("Sexo e idade inválidos!");
+                    throw new Exception("Erro: Sexo e idade inválidos!");
                 }
                 else
                 {
 
                     if (!ValidarSexo(pessoa))
                     {
-                        throw new Exception("Sexo inválido!");
+                        throw new Exception("Erro: Sexo inválido!");
                     }
                     else
                     {
@@ -96,7 +96,7 @@ namespace API_REST_With_DOTNET7.Business.Implementations
                         }
                         else
                         {
-                            throw new Exception("Idade inválida!");
+                            throw new Exception("Erro: Idade inválida!");
                         }
                     }
                 }
