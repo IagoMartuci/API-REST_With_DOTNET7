@@ -7,18 +7,20 @@ namespace API_REST_With_DOTNET7.Business.Implementations
     public class LivroBusinessImplementation : ILivroBusiness
     {
         private ILog _log = LogManager.GetLogger(typeof(LivroBusinessImplementation));
-        private readonly ILivroRepository _repository;
+        private readonly ILivroRepository _livroRepository;
+        private readonly IPessoaRepository _pessoaRepository;
 
-        public LivroBusinessImplementation(ILivroRepository repository)
+        public LivroBusinessImplementation(ILivroRepository livroRepository, IPessoaRepository pessoaRepository)
         {
-            _repository = repository;
+            _livroRepository = livroRepository;
+            _pessoaRepository = pessoaRepository;
         }
 
         public List<Livro> FindAllBusiness()
         {
             try
             {
-                return _repository.FindAllRepository();
+                return _livroRepository.FindAllRepository();
             }
             catch (Exception ex)
             {
@@ -31,7 +33,7 @@ namespace API_REST_With_DOTNET7.Business.Implementations
         {
             try
             {
-                return _repository.FindByIdRepository(id);
+                return _livroRepository.FindByIdRepository(id);
             }
             catch (Exception ex)
             {
@@ -44,12 +46,17 @@ namespace API_REST_With_DOTNET7.Business.Implementations
         {
             try
             {
+                if (!ValidarUsuario(livro.IdUsuario))
+                    throw new Exception("Erro: favor informar o id do usuário responsável pelo cadastro!");
+
+                var usuario = _pessoaRepository.FindByIdRepository(livro.IdUsuario);
+                livro.NomeUsuario = string.Format("{0} {1}", usuario.Nome, usuario.Sobrenome);
                 livro.DataLancamento = DateTime.Now.ToString();
 
                 if (!ValidarPreco(livro.Preco))
                     throw new Exception("Erro: Favor informar o preço do livro!");
                 else
-                    return _repository.CreateRepository(livro);
+                    return _livroRepository.CreateRepository(livro);
             }
             catch (Exception ex)
             {
@@ -88,7 +95,7 @@ namespace API_REST_With_DOTNET7.Business.Implementations
                         }
                         else
                         {
-                            return _repository.UpdateRepository(livro);
+                            return _livroRepository.UpdateRepository(livro);
                         }
                     }
                 }
@@ -104,13 +111,24 @@ namespace API_REST_With_DOTNET7.Business.Implementations
         {
             try
             {
-                _repository.DeleteRepository(id);
+                _livroRepository.DeleteRepository(id);
             }
             catch (Exception ex)
             {
                 _log.Info(ex);
                 throw;
             }
+        }
+
+        private bool ValidarUsuario(int? idUsuario)
+        {
+            if (idUsuario == 0)
+                idUsuario = null;
+
+            if (idUsuario != null)
+                return true;
+            else
+                return false;
         }
 
         private bool ValidarPreco(decimal? preco)
@@ -123,7 +141,7 @@ namespace API_REST_With_DOTNET7.Business.Implementations
 
         //private bool ValidarDataLancamento(Livro livro)
         //{
-              // Aproveitando a validação do Exists presente no método FindById
+        // Aproveitando a validação do Exists presente no método FindById
         //    var result = _repository.FindByIdRepository(livro.Id);
 
         //    if (result != null)
@@ -141,7 +159,7 @@ namespace API_REST_With_DOTNET7.Business.Implementations
 
         private bool ValidarDataLancamento(Livro livro)
         {
-            var result = _repository.FindByIdRepository(livro.Id);
+            var result = _livroRepository.FindByIdRepository(livro.Id);
 
             if (livro.DataLancamento.Equals(result.DataLancamento))
                 return true;

@@ -6,7 +6,7 @@ using MySqlConnector;
 
 namespace API_REST_With_DOTNET7.Controllers
 {
-    [ApiVersion("2.0")]
+    [ApiVersion("2")]
     [ApiController]
     [Route("api/v{version:apiVersion}/pessoas/")]
     public class PessoasControllerV2 : ControllerBase
