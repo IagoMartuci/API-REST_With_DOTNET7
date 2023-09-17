@@ -74,6 +74,15 @@ namespace API_REST_With_DOTNET7.Business.Implementations
 
                 //if (!livroExists)
                 //    throw new Exception("Erro: Id não encontrado! Exists");
+                var usuario = new Pessoa();
+
+                if (!ValidarUsuario(livro.IdUsuario))
+                    throw new Exception("Erro: Não é permitido alterar o usuário responsável pelo cadastro!");
+                else
+                    usuario = _pessoaRepository.FindByIdRepository(livro.IdUsuario);
+
+                if (livro.IdUsuario != usuario.Id || !livro.NomeUsuario.Equals(usuario.Nome + " " + usuario.Sobrenome))
+                    throw new Exception("Erro: Não é permitido alterar o usuário responsável pelo cadastro!");
 
                 // Se optar por fazer a validação se o livro existe no BD, aproveitando o Exists do método FindById, a programação começa aqui
                 if (!ValidarDataLancamento(livro) && !ValidarPreco(livro.Preco))
