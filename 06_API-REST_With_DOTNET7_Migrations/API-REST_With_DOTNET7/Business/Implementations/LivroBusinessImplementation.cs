@@ -46,17 +46,21 @@ namespace API_REST_With_DOTNET7.Business.Implementations
         {
             try
             {
+                if (!ValidarPreco(livro.Preco) && !ValidarUsuario(livro.IdUsuario))
+                    throw new Exception("Erro 1: Favor informar o preço do livro!\n" +
+                        "Erro 2: Favor informar o id do usuário responsável pelo cadastro!");
+
+                if (!ValidarPreco(livro.Preco))
+                    throw new Exception("Erro: Favor informar o preço do livro!");
+
                 if (!ValidarUsuario(livro.IdUsuario))
-                    throw new Exception("Erro: favor informar o id do usuário responsável pelo cadastro!");
+                    throw new Exception("Erro: Favor informar o id do usuário responsável pelo cadastro!");
 
                 var usuario = _pessoaRepository.FindByIdRepository(livro.IdUsuario);
                 livro.NomeUsuario = string.Format("{0} {1}", usuario.Nome, usuario.Sobrenome);
                 livro.DataLancamento = DateTime.Now.ToString();
-
-                if (!ValidarPreco(livro.Preco))
-                    throw new Exception("Erro: Favor informar o preço do livro!");
-                else
-                    return _livroRepository.CreateRepository(livro);
+                
+                return _livroRepository.CreateRepository(livro);
             }
             catch (Exception ex)
             {
@@ -70,43 +74,57 @@ namespace API_REST_With_DOTNET7.Business.Implementations
             try
             {
                 // Verificando se o livro existe diretamente pelo Exists
-                //var livroExists = _repository.Exists(livro.Id);
+                //var livroExists = _livroRepository.Exists(livro.Id);
 
                 //if (!livroExists)
                 //    throw new Exception("Erro: Id não encontrado! Exists");
-                var usuario = new Pessoa();
 
-                if (!ValidarUsuario(livro.IdUsuario))
-                    throw new Exception("Erro: Não é permitido alterar o usuário responsável pelo cadastro!");
-                else
-                    usuario = _pessoaRepository.FindByIdRepository(livro.IdUsuario);
-
-                if (livro.IdUsuario != usuario.Id || !livro.NomeUsuario.Equals(usuario.Nome + " " + usuario.Sobrenome))
-                    throw new Exception("Erro: Não é permitido alterar o usuário responsável pelo cadastro!");
+                // Não permitir que o id e nome do usuario responsável pelo cadastro do livro seja alterado
+                var getLivro = _livroRepository.FindByIdRepository(livro.Id);
 
                 // Se optar por fazer a validação se o livro existe no BD, aproveitando o Exists do método FindById, a programação começa aqui
-                if (!ValidarDataLancamento(livro) && !ValidarPreco(livro.Preco))
+                if (!ValidarDataLancamento(livro) && !ValidarPreco(livro.Preco) &&
+                        (!ValidarUsuario(livro.IdUsuario) || livro.IdUsuario != getLivro.IdUsuario ||
+                            !livro.NomeUsuario.Equals(getLivro.NomeUsuario)))
                 {
-                    throw new Exception("Erro 1: Não é permitido alterar a data de lançamento do livro! \n" +
+                    throw new Exception("Erro 1: Não é permitido alterar a data de lançamento do livro!\n" +
+                                        "Erro 2: Favor informar o preço do livro!\n" +
+                                        "Erro 3: Não é permitido alterar o usuário responsável pelo cadastro!");
+                    
+                }
+                else if (!ValidarDataLancamento(livro) && !ValidarPreco(livro.Preco))
+                {
+                    throw new Exception("Erro 1: Não é permitido alterar a data de lançamento do livro!\n" +
                                         "Erro 2: Favor informar o preço do livro!");
+                }
+                else if (!ValidarDataLancamento(livro) && (!ValidarUsuario(livro.IdUsuario) ||
+                         livro.IdUsuario != getLivro.IdUsuario || !livro.NomeUsuario.Equals(getLivro.NomeUsuario)))
+                {
+                    throw new Exception("Erro 1: Não é permitido alterar a data de lançamento do livro!\n" +
+                                        "Erro 2: Não é permitido alterar o usuário responsável pelo cadastro!");
+                }
+                else if (!ValidarPreco(livro.Preco) && (!ValidarUsuario(livro.IdUsuario) ||
+                         livro.IdUsuario != getLivro.IdUsuario || !livro.NomeUsuario.Equals(getLivro.NomeUsuario)))
+                {
+                    throw new Exception("Erro 1: Favor informar o preço do livro!\n" +
+                                        "Erro 2: Não é permitido alterar o usuário responsável pelo cadastro!");
+                }
+                else if (!ValidarDataLancamento(livro))
+                {
+                    throw new Exception("Erro: Não é permitido alterar a data de lançamento do livro!");
+                }
+                else if (!ValidarPreco(livro.Preco))
+                {
+                    throw new Exception("Erro: Favor informar o preço do livro!");
+                }
+                else if (!ValidarUsuario(livro.IdUsuario) || livro.IdUsuario != getLivro.IdUsuario ||
+                         !livro.NomeUsuario.Equals(getLivro.NomeUsuario))
+                {
+                    throw new Exception("Erro: Não é permitido alterar o usuário responsável pelo cadastro!");
                 }
                 else
                 {
-                    if (!ValidarDataLancamento(livro))
-                    {
-                        throw new Exception("Erro: Não é permitido alterar a data de lançamento do livro!");
-                    }
-                    else
-                    {
-                        if ((!ValidarPreco(livro.Preco)))
-                        {
-                            throw new Exception("Erro: Favor informar o preço do livro!");
-                        }
-                        else
-                        {
-                            return _livroRepository.UpdateRepository(livro);
-                        }
-                    }
+                    return _livroRepository.UpdateRepository(livro);
                 }
             }
             catch (Exception ex)
@@ -150,8 +168,8 @@ namespace API_REST_With_DOTNET7.Business.Implementations
 
         //private bool ValidarDataLancamento(Livro livro)
         //{
-        // Aproveitando a validação do Exists presente no método FindById
-        //    var result = _repository.FindByIdRepository(livro.Id);
+              // Aproveitando a validação do Exists presente no método FindById
+        //    var result = _livroRepository.FindByIdRepository(livro.Id);
 
         //    if (result != null)
         //    {
@@ -168,6 +186,7 @@ namespace API_REST_With_DOTNET7.Business.Implementations
 
         private bool ValidarDataLancamento(Livro livro)
         {
+            // Aproveitando a validação do Exists presente no método FindById
             var result = _livroRepository.FindByIdRepository(livro.Id);
 
             if (livro.DataLancamento.Equals(result.DataLancamento))
