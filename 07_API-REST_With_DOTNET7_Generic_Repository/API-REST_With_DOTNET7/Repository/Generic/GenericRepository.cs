@@ -1,10 +1,9 @@
 ﻿using API_REST_With_DOTNET7.Model.Base;
 using API_REST_With_DOTNET7.Model.Context;
-using API_REST_With_DOTNET7.Repository.Generic;
 using log4net;
 using Microsoft.EntityFrameworkCore;
 
-namespace API_REST_With_DOTNET7.Repository.Implementations
+namespace API_REST_With_DOTNET7.Repository.Generic
 {
     public class GenericRepository<T> : IRepository<T> where T : BaseEntity
     {
