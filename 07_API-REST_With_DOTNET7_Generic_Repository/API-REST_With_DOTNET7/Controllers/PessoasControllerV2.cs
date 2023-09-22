@@ -19,6 +19,34 @@ namespace API_REST_With_DOTNET7.Controllers
             _business = business;
         }
 
+        // Teste
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [HttpGet("idade/{idade}")]
+        public IActionResult GetByIdade(int idade)
+        {
+            try
+            {
+                return Ok(_business.FindByIdadeBusiness(idade));
+            }
+            catch (MySqlException ex)
+            {
+                _log.Error(ex);
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+            catch (InvalidOperationException ex)
+            {
+                _log.Error(ex);
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+            catch (Exception ex)
+            {
+                _log.Error(ex);
+                return NotFound(ex.Message);
+            }
+        }
+
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet]

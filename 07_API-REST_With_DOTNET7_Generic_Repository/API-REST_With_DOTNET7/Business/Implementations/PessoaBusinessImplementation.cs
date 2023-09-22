@@ -1,6 +1,7 @@
 ﻿using log4net;
 using API_REST_With_DOTNET7.Model;
 using API_REST_With_DOTNET7.Repository.Generic;
+using API_REST_With_DOTNET7.Repository;
 
 namespace API_REST_With_DOTNET7.Business.Implementations
 {
@@ -8,9 +9,25 @@ namespace API_REST_With_DOTNET7.Business.Implementations
     {
         private ILog _log = LogManager.GetLogger("Pessoa Business");
         private readonly IRepository<Pessoa> _repository;
-        public PessoaBusinessImplementation(IRepository<Pessoa> repository)
+        private readonly IPessoaRepository _pessoaRepository;
+        public PessoaBusinessImplementation(IRepository<Pessoa> repository, IPessoaRepository pessoaRepository)
         {
             _repository = repository;
+            _pessoaRepository = pessoaRepository;
+        }
+
+        // Teste
+        public List<Pessoa> FindByIdadeBusiness(int idade)
+        {
+            try
+            {
+                return _pessoaRepository.FindByIdadeRepository(idade);
+            }
+            catch (Exception ex)
+            {
+                _log.Info(ex);
+                throw;
+            }
         }
 
         public List<Pessoa> FindAllBusiness()

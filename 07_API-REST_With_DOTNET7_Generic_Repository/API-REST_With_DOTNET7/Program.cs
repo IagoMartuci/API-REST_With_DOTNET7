@@ -22,7 +22,7 @@ builder.Services.AddApiVersioning();
 builder.Services.AddScoped<IPessoaBusiness, PessoaBusinessImplementation>();
 builder.Services.AddScoped<IPessoaRepository, PessoaRepositoryImplementation>();
 builder.Services.AddScoped<ILivroBusiness, LivroBusinessImplementation>();
-builder.Services.AddScoped<ILivroRepository, LivroRepositoryImplementation>();
+//builder.Services.AddScoped<ILivroRepository, LivroRepositoryImplementation>();
 // Injeção de dependencia da interface do Repositorio Generico
 builder.Services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
 
