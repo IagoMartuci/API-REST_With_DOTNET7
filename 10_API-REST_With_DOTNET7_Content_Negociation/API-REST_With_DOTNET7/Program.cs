@@ -35,6 +35,7 @@ var serverVersion = new MySqlServerVersion(new Version(8, 0, 33));
 builder.Services.AddDbContext<MySQLContext>(options => options.UseMySql(connString, serverVersion));
 
 // Configurando para trafegar dados em XML também (Content Negociation)
+/*
 builder.Services.AddMvc(options =>
 {
     options.RespectBrowserAcceptHeader = true; // Para ele aceitar o formato de dado setado no header da requisição
@@ -46,6 +47,7 @@ builder.Services.AddMvc(options =>
     options.FormatterMappings.SetMediaTypeMappingForFormat("xml", "application/xml");
 
 }).AddXmlSerializerFormatters();
+*/
 
 var app = builder.Build();
 
