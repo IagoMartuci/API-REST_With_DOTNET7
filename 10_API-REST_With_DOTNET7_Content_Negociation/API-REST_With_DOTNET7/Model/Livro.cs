@@ -9,13 +9,10 @@ namespace API_REST_With_DOTNET7.Model
     {
         [Column("autor")]
         public string Autor { get; set; }
-        [Column("data_lancamento")]
-        public string? DataLancamento { get; set; }
-        //public DateTime DataLancamento { get; set; }
-        [Column("preco")]
-        public decimal? Preco { get; set; }
         [Column("titulo")]
         public string Titulo { get; set; }
+        [Column("preco")]
+        public decimal? Preco { get; set; }
 
         // Relacionamento Pessoa x Livro:
         // A ideia era relacionar a pessoa como se fosse o usuario de um sistema, e que ao cadastrar um livro, ela deve informar o seu id de usuário
@@ -27,5 +24,14 @@ namespace API_REST_With_DOTNET7.Model
         public int? IdUsuario { get; set; }
         [Column("nome_usuario")] // Nome do responsavel pelo cadastro do livro
         public string? NomeUsuario { get; set; }
+        [Column("data_cadastro")]
+        public string? DataCadastro { get; set; }
+        //public DateTime DataLancamento { get; set; }
+        [Column("id_usuario_alteracao")]
+        public int? IdUsuarioAlt { get; set; }
+        [Column("nome_usuario_alteracao")]
+        public string? NomeUsuarioAlt { get; set; }
+        [Column("data_alteracao")]
+        public string? DtAlteracao { get; set; }
     }
 }

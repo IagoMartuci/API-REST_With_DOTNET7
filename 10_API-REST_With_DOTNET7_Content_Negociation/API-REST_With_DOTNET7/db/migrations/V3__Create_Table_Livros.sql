@@ -1,9 +1,12 @@
 ﻿CREATE TABLE `livros` (
-  `id` INT(10) AUTO_INCREMENT PRIMARY KEY,
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
   `autor` longtext NOT NULL,
-  `data_lancamento` longtext,
-  `preco` decimal(65,2),
   `titulo` longtext NOT NULL,
+  `preco` decimal(65,2),
   `id_usuario` INT NOT NULL,
-  `nome_usuario` longtext NOT NULL
+  `nome_usuario` longtext NOT NULL,
+  `data_cadastro` longtext,
+  `id_usuario_alteracao` INT,
+  `nome_usuario_alteracao` longtext,
+  `data_alteracao` longtext
 )
