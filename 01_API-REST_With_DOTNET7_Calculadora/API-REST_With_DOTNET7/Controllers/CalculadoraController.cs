@@ -78,23 +78,27 @@ namespace API_REST_With_DOTNET7.Controllers
             }
             return BadRequest("Valor inválido!");
         }
-            private bool IsNumeric(string strNum)
-            {
-                double number;
-                // Quando for fazer o Parse se der certo é true para numérico
-                bool isNumber = double.TryParse(strNum, System.Globalization.NumberStyles.Any,
-                    System.Globalization.NumberFormatInfo.InvariantInfo, out number);
-                return isNumber;
-            }
+        private bool IsNumeric(string strNum)
+        {
+            double number;
+            // Quando for fazer o Parse se der certo é true para numérico
+            bool isNumber = double.TryParse(strNum, System.Globalization.NumberStyles.Any,
+                System.Globalization.NumberFormatInfo.InvariantInfo, out number);
+            return isNumber;
+        }
 
-            private decimal ConvertToDecimal(string strNum)
-            {
-                decimal decimalValue;
-                if (decimal.TryParse(strNum, out decimalValue))
-                {
-                    return decimalValue;
-                }
-                return 0;
-            }
+        private decimal ConvertToDecimal(string strNum)
+        {
+            decimal decimalValue;
+
+            // Se não fizer essa validação, quando digitamos ponto, exemplo 1.25, ele considera 125 quando converte para decimal
+            if (strNum.Contains("."))
+                strNum = strNum.Replace('.', ',');
+
+            if (decimal.TryParse(strNum, out decimalValue))
+                return decimalValue;
+
+            return 0;
         }
     }
+}
