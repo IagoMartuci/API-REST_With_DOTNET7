@@ -338,7 +338,7 @@ namespace API_REST_With_DOTNET7.Business.Implementations
                 return false;
         }
 
-        // Obs.: Para validar se a data de cadastro não foi alterada e o preço não fosse null
+        // Obs.: Para validar se a data de cadastro não foi alterada e o preço não seja null
         // eu tive que declarar eles como possíveis null no BD e na classe da API, e para não
         // permitir null fiz o tratamento nos métodos de validação, assim como não permitir
         // a alteração na data de cadastro.

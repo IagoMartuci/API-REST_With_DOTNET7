@@ -27,7 +27,6 @@ builder.Services.AddScoped<ILivroBusiness, LivroBusinessImplementation>();
 // Injeção de dependencia da interface do Repositorio Generico
 builder.Services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
 
-
 // Configurando conexão ao MySQL DB (Utilizando o Pomelo)
 // https://stackoverflow.com/questions/72670847/using-pomelo-entityframeworkcore-mysql-to-connect-to-mysql-with-net-6-on-mac
 var connString = builder.Configuration["MySQLConn:MySQLConnString"];

@@ -13,6 +13,7 @@ namespace API_REST_With_DOTNET7.Business.Implementations
         private readonly IRepository<Pessoa> _repository;
         private readonly IPessoaRepository _pessoaRepository;
         private readonly PessoaConverter _converter;
+
         public PessoaBusinessImplementation(IRepository<Pessoa> repository, IPessoaRepository pessoaRepository)
         {
             _repository = repository;
