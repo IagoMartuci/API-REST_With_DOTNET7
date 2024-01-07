@@ -1,10 +1,12 @@
-﻿using API_REST_With_DOTNET7.Model;
+﻿using API_REST_With_DOTNET7.Hypermedia;
+using API_REST_With_DOTNET7.Hypermedia.Abstract;
+using API_REST_With_DOTNET7.Model;
 using System.Text.Json.Serialization;
 using System.Xml.Serialization;
 
 namespace API_REST_With_DOTNET7.Data.VO
 {
-    public class LivroVO
+    public class LivroVO : ISupportsHyperMedia
     {
         public int Id { get; set; }
         public string Autor { get; set; }
@@ -26,5 +28,7 @@ namespace API_REST_With_DOTNET7.Data.VO
         [JsonIgnore]
         public string? DtAlteracao { get; set; }
         public string? LogAlteracaoCadastral { get; set; } // Exclusivo do VO
+        public List<HyperMediaLink> Links { get; set; } = new List<HyperMediaLink>();
+
     }
 }

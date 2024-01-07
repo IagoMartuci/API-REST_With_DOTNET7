@@ -1,5 +1,6 @@
 ﻿using API_REST_With_DOTNET7.Business;
 using API_REST_With_DOTNET7.Data.VO;
+using API_REST_With_DOTNET7.Hypermedia.Filters;
 using API_REST_With_DOTNET7.Model;
 using log4net;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +10,7 @@ namespace API_REST_With_DOTNET7.Controllers
 {
     [ApiVersion("1")]
     [ApiController]
-    [Route("api/v{version:apiVersion}/[controller]/")]
+    [Route("api/[controller]/v{version:apiVersion}/")]
     public class LivrosController : ControllerBase
     {
         private ILog _log = LogManager.GetLogger(typeof(LivrosController));
@@ -23,6 +24,7 @@ namespace API_REST_With_DOTNET7.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult GetAll()
         {
             try
@@ -40,6 +42,7 @@ namespace API_REST_With_DOTNET7.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet("{id}")]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult GetById(int id)
         {
             try
@@ -67,6 +70,7 @@ namespace API_REST_With_DOTNET7.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpPost]
+        [TypeFilter(typeof(HyperMediaFilter))]
         //public IActionResult Create([FromBody] Livro livro)
         public IActionResult Create([FromBody] LivroVO livro)
         {
@@ -95,6 +99,7 @@ namespace API_REST_With_DOTNET7.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpPut]
+        [TypeFilter(typeof(HyperMediaFilter))]
         //public IActionResult Update([FromBody] Livro livro)
         public IActionResult Update([FromBody] LivroVO livro)
         {

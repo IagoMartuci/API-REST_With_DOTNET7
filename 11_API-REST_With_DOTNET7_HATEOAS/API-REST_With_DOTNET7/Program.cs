@@ -23,6 +23,7 @@ builder.Services.AddSwaggerGen();
 // Adicionando HyperMedia (HATEOAS)
 var filterOptions = new HyperMediaFilterOptions();
 filterOptions.ContentResponseEnricherList.Add(new PessoaEnricher());
+filterOptions.ContentResponseEnricherList.Add(new LivroEnricher());
 builder.Services.AddSingleton(filterOptions);
 // Adicionando o versionamento da API: https://github.com/dotnet/aspnet-api-versioning
 builder.Services.AddApiVersioning();
